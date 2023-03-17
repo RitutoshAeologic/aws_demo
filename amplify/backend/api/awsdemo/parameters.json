@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "awsdemo",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authawsdemo6bc7f319",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
