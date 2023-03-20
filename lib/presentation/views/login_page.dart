@@ -51,87 +51,87 @@ class _LogInPageState extends State<LogInPage> {
         ),
         body:
         SingleChildScrollView(
-          child: Center(
-            child: Form(
-              key: _formKey,
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
               child: Column(
                 children: [
                   const SizedBox(height: 20,),
                   Text(AppString.loginPageText,
                       style: AppTextStyle.text1),
                   const SizedBox(height: 40,),
-                  FittedBox(
-                    child: Container(
-                        key: const Key('userEmail'),
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          //color: AppColors.mediumBlueGrey
-                        ),
-                        child:
-                        GrayGetTextField(
-                          hint: 'User Email',
-                          obscure: false,
-                          controller: emailTextController,
-                          isVisible: false,
-                          onValidate: CommonUtils.isValidateEmail,
-                          valueDidChange: (String? value) {
-                            if(validate){
-                              _formKey.currentState!.validate();}
-                          }, inputType: TextInputType.emailAddress,)
-                    ),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 60,
+                      child:
+                      GrayGetTextField(
+                        hint: 'User Email',
+                        obscure: false,
+                        controller: emailTextController,
+                        isVisible: false,
+                        onValidate: CommonUtils.isValidateEmail,
+                        valueDidChange: (String? value) {
+                          if(validate){
+                            _formKey.currentState!.validate();}
+                        }, inputType: TextInputType.emailAddress,)
                   ),
                   const SizedBox(height: 20,),
-                  FittedBox(
-                    child: Container(
-                        key: const Key('userPassword'),
-                        padding: const EdgeInsets.symmetric(horizontal: 32),
-                        width: MediaQuery.of(context).size.width,
-                        height: 60,
-                        child: GrayGetTextField(
-                          hint: 'Password',
-                          obscure: true,
-                          controller: passwordTextController,
-                          isVisible: true,
-                          onValidate: CommonUtils.isPasswordValid,
-                          valueDidChange: (String? value) { if(validate){
-                            _formKey.currentState!.validate();
-                          } }, inputType: TextInputType.text,)
-                    ),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 60,
+                      child: GrayGetTextField(
+                        hint: 'Password',
+                        obscure: true,
+                        controller: passwordTextController,
+                        isVisible: true,
+                        onValidate: CommonUtils.isPasswordValid,
+                        valueDidChange: (String? value) { if(validate){
+                          _formKey.currentState!.validate();
+                        } }, inputType: TextInputType.text,)
                   ),
-                  const SizedBox(height: 30,),
+                  const SizedBox(height: 40,),
                   GestureDetector(
                     onTap: () async {
-                      if(_formKey.currentState?.validate() ?? false ){
-                      auth.signIn(emailTextController.text.trim(), passwordTextController.text.trim());
+                      await auth.signIn(emailTextController.text.trim(), passwordTextController.text.trim(),context);
+                      if(await auth.getCurrentUser(signedIn: true))
+                      {
                         Navigator.pushNamed(context, Routes.welcomeScreen);
                       }
+
+
                     },
                     child: Container(
-                      key: Key("signInButton"),
-                      width: MediaQuery.of(context).size.width / 1.6,
-                      height: 60,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 18),
+                      height: 53,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
-                          color: AppColors.mediumTeal
+                          color: AppColors.mediumBlueGrey,
+                        border: Border.all(color: AppColors.mediumTeal,width: 2)
                       ),
                       child: Center(
                         child: Text(AppString.loginText,
-                          style: AppTextStyle.text2,),
+                          style: AppTextStyle.text4,),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
+                Text( AppString.orWithText,
+                  style: AppTextStyle.text3),
+                  const SizedBox(height: 20),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 28.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: SizedBox(
-                      height: 51,
+                      height: 53,
                       child: TextButton(
                         onPressed: () async{
                           await auth.signInWithWebUI();
-                          Navigator.pushNamed(context, Routes.welcomeScreen);
+                          if(await auth.getCurrentUser(signedIn: true))
+                          {
+                            Navigator.pushNamed(context, Routes.welcomeScreen);
+                          }
+                          if (!mounted) return;
                         },
                         style: ButtonStyle(
                             side: MaterialStateProperty.all(
@@ -157,7 +157,8 @@ class _LogInPageState extends State<LogInPage> {
                             const SizedBox(
                               width: 10,
                             ),
-                            const Text('Sign In With Google',style: TextStyle(color: AppColors.mediumTeal),),
+                            Text(AppString.signInWithGoogleText,
+                              style: AppTextStyle.text4,),
                           ],
                         ),
                       ),
@@ -169,7 +170,6 @@ class _LogInPageState extends State<LogInPage> {
                     children: [
                       const Text(AppString.doesNotHaveText),
                       TextButton(
-                          key: const Key('signUpButton'),
                           onPressed: (){
                             Navigator.pushNamed(context, Routes.signUpScreen);
                           },

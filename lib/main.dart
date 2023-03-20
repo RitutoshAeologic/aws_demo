@@ -24,7 +24,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
     _configureAmplify();
   }
 
@@ -48,7 +47,6 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData.light(),
-       //builder: Authenticator.builder(),
         home: _isAmplifyConfigured ? const LogInPage(title: '',) :
         const Center(child: CircularProgressIndicator()),
          onGenerateRoute: RouterApp.generateRoute,

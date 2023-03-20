@@ -1,20 +1,28 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
+import '../../../presentation/utils/common_utils.dart';
+
 class AWSAuthRepo {
 
-  Future<AuthUser> getCurrentUser() async {
+  Future<bool> getCurrentUser({required bool signedIn}) async {
     final user = await Amplify.Auth.getCurrentUser();
+    if(user != null ){
+      signedIn = true;
+    }
+    else {
+      signedIn = false;
+    }
     print('$user');
-    return user;
+    return signedIn;
   }
 
-  Future<void> signUp(String email, String password) async{
+  Future<void> signUp(String email, String password, context) async{
     try {
       final CognitoSignUpOptions options = CognitoSignUpOptions();
     await Amplify.Auth.signUp(username: email, password: password, options: options);
-  } on Exception{
-      rethrow;
+  } on AmplifyException catch(e){
+      CommonUtils.showError(context, e.toString());
     }
   }
 
@@ -26,12 +34,13 @@ class AWSAuthRepo {
     }
   }
 
-  Future<void> signIn(String email, String password) async {
+  Future<void> signIn(String email, String password, context) async {
     try {
       await Amplify.Auth.signIn(username: email, password: password,);
       await Amplify.Auth.getCurrentUser();
-    } on Exception {
-      rethrow;
+    }
+    on AmplifyException catch(e){
+      CommonUtils.showError(context, e.toString());
     }
   }
 

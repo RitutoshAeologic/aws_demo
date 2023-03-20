@@ -11,6 +11,10 @@ class AppString{
   static const String passwordText           = 'Password';
   static const String confirmPasswordText    = 'Confirm Password';
   static const String signOutText            = 'SIGN OUT';
-  static const String confirmSignUpText    = 'Confirmation Code';
-  static const String submitText    = 'Submit';
+  static const String confirmSignUpText      = 'Confirmation Code';
+  static const String submitText             = 'Submit';
+  static const String signUpWithGoogleText   = 'SIGN UP With Google';
+  static const String signInWithGoogleText   = 'SIGN In With Google';
+  static const String welcomeUserText        =  'Welcome User';
+  static const String orWithText             = '-------------- Or With ------------';
 }

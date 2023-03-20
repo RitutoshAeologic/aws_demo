@@ -34,7 +34,8 @@ mixin AppTextStyle{
   );
 
   static  TextStyle text4 = const TextStyle(
-      fontSize: 20,
+      fontSize: 18,
       color: AppColors.mediumTeal,
-      height: 1.4);
+      fontWeight: AppFontWeight.fontBold
+  );
 }

@@ -1,7 +1,5 @@
 import 'package:aws_demo/data/repositories/remote/aws_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:aws_demo/data/repositories/remote/aws_auth.dart';
 import 'package:aws_demo/presentation/constants/color_constant.dart';
 import 'package:aws_demo/presentation/constants/string_constant.dart';
 import 'package:aws_demo/presentation/constants/typography_constant.dart';
@@ -19,7 +17,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
  AWSAuthRepo auth = AWSAuthRepo();
- final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
  final TextEditingController nameTextController = TextEditingController();
  final TextEditingController phoneNoTextController = TextEditingController();
 
@@ -47,6 +44,7 @@ class _HomeState extends State<Home> {
           ),),
       ),),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(AppString.homeAppText),
         centerTitle: true,
         backgroundColor: AppColors.mediumTeal,
@@ -54,39 +52,12 @@ class _HomeState extends State<Home> {
       body:
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-          TextField(
-              controller: nameTextController,
-              decoration: const InputDecoration(
-                fillColor: AppColors.mediumBlueGrey,
-                filled: true,
-                border: InputBorder.none,
-                labelStyle: TextStyle(color: AppColors.mediumTeal),
-                hintText: 'User Name',
-                isDense: true,
-                contentPadding:
-                EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-              ),),
-              const SizedBox(height: 30),
-              TextField(
-                controller: phoneNoTextController,
-                keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
-                  fillColor: AppColors.mediumBlueGrey,
-                  filled: true,
-                  border: InputBorder.none,
-                  labelStyle: TextStyle(color: AppColors.mediumTeal),
-                  hintText: 'Confirmation Code',
-                  isDense: true,
-                  contentPadding:
-                  EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                ),),
-              const SizedBox(height: 30),
-              Text(AWSAuthRepo().getCurrentUser().toString())
-              ]
-                        ),
+        child: Center(
+          child: Text(
+            AppString.welcomeUserText,
+        style: AppTextStyle.text4,
+        ),
+        ),
         )
                   );
   }

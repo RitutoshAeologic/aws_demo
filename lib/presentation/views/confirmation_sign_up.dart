@@ -41,59 +41,55 @@ class _ConfirmationSignUPState extends State<ConfirmationSignUP> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 40,),
                     Text(AppString.confirmSignUpText,
                         style: AppTextStyle.text1),
-                    const SizedBox(height: 40,),
-                    FittedBox(
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            //color: AppColors.mediumBlueGrey
-                          ),
-                          child:
-                          GrayGetTextField(
-                            hint: 'User Email',
-                            obscure: false,
-                            controller: emailTextController,
-                            isVisible: false,
-                            onValidate: CommonUtils.isValidateEmail,
-                            valueDidChange: (String? value) {
-                              if(validate){
-                                _formKey.currentState!.validate();}
-                            }, inputType: TextInputType.emailAddress,)
-                      ),
+                    const SizedBox(height: 70,),
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          //color: AppColors.mediumBlueGrey
+                        ),
+                        child:
+                        GrayGetTextField(
+                          hint: 'User Email',
+                          obscure: false,
+                          controller: emailTextController,
+                          isVisible: false,
+                          onValidate: CommonUtils.isValidateEmail,
+                          valueDidChange: (String? value) {
+                            if(validate){
+                              _formKey.currentState!.validate();}
+                          }, inputType: TextInputType.emailAddress,)
                     ),
                     const SizedBox(height: 30,),
-                    FittedBox(
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.symmetric(horizontal: 32),
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            //color: AppColors.mediumBlueGrey
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 32),
+                        height: 60,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          //color: AppColors.mediumBlueGrey
+                        ),
+                        child:
+                        TextField(
+                          controller: confirmationTextController,
+                          decoration: const InputDecoration(
+                            fillColor: AppColors.mediumBlueGrey,
+                            filled: true,
+                            border: InputBorder.none,
+                            labelStyle: TextStyle(color: AppColors.mediumTeal),
+                            hintText: 'Confirmation Code',
+                            isDense: true,
+                            contentPadding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 15),
                           ),
-                          child:
-                          TextField(
-                            controller: confirmationTextController,
-                            decoration: const InputDecoration(
-                              fillColor: AppColors.mediumBlueGrey,
-                              filled: true,
-                              border: InputBorder.none,
-                              labelStyle: TextStyle(color: AppColors.mediumTeal),
-                              hintText: 'Confirmation Code',
-                              isDense: true,
-                              contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12, vertical: 15),
-                            ),
-                          )
-                      ),
+                        )
                     ),
-                    const SizedBox(height: 30,),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.3,),
                 GestureDetector(
                       onTap: () async {
                         if (_formKey.currentState?.validate() ?? false)
